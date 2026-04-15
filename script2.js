@@ -44,15 +44,20 @@ const lines = {
   
   async function opening() {
     setMode("opening");
-  
-    // Put BOTH lines in the DOM immediately (reserves space)
+
+    // Put BOTH lines in place
     line1.innerHTML = lines.opening1;
     line2.innerHTML = lines.opening2;
-  
-    // Only show first line initially
-    await sleep(120)
-    line1.classList.add("is-visible");
+
+    // Reset BOTH lines to hidden state
+    line1.classList.remove("is-visible");
     line2.classList.remove("is-visible");
+
+    // Let browser register hidden state
+    await sleep(40);
+
+    // Now fade in first line
+    line1.classList.add("is-visible");
   
     await sleep(HOLD);
   
@@ -113,5 +118,6 @@ const lines = {
   (async () => {
     while (true) {
       await opening();
-      await sleep(2000);
+      await sleep(2000); // pause before restart
+    }
   })();
