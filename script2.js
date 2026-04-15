@@ -111,6 +111,7 @@ const lines = {
   /* init */
   
   (async () => {
-    await opening();
-    await ambient();
+    while (true) {
+      await opening();
+      await sleep(2000);
   })();
