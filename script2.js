@@ -102,6 +102,7 @@ async function ambient() {
 }
 
 (async () => {
+  await sleep(200);
   while (true) {
     await opening();
     await sleep(2000);
