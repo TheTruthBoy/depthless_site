@@ -6,19 +6,12 @@ const lines = {
   line5: "Meaning connects everything"
 };
 
-const ambientLines = [
-  lines.opening2,
-  lines.line3,
-  lines.line4,
-  lines.line5
-];
-
 const textStage = document.getElementById("textStage");
 const line1 = document.getElementById("line1");
 const line2 = document.getElementById("line2");
 const brandBlock = document.getElementById("brandBlock");
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const FADE = 2000;
 const HOLD = 4500;
@@ -29,80 +22,87 @@ function setMode(mode) {
   textStage.classList.add(mode);
 }
 
-function show(el, html) {
+function prepare(el, html = "") {
   el.innerHTML = html;
-  requestAnimationFrame(() => el.classList.add("is-visible"));
+  el.style.opacity = "0";
 }
 
-function hide(el) {
-  el.classList.remove("is-visible");
+async function fadeIn(el, html = null) {
+  if (html !== null) {
+    el.innerHTML = html;
+  }
+
+  el.style.opacity = "0";
+  el.getBoundingClientRect();
+
+  const anim = el.animate(
+    [{ opacity: 0 }, { opacity: 1 }],
+    {
+      duration: FADE,
+      easing: "ease",
+      fill: "forwards"
+    }
+  );
+
+  await anim.finished;
+  el.style.opacity = "1";
+}
+
+async function fadeOut(el) {
+  const currentOpacity = getComputedStyle(el).opacity;
+
+  const anim = el.animate(
+    [{ opacity: currentOpacity }, { opacity: 0 }],
+    {
+      duration: FADE,
+      easing: "ease",
+      fill: "forwards"
+    }
+  );
+
+  await anim.finished;
+  el.style.opacity = "0";
 }
 
 async function opening() {
   setMode("opening");
 
-  line1.innerHTML = lines.opening1;
-  line2.innerHTML = lines.opening2;
+  // Put both lines in place from the start so no layout jump
+  prepare(line1, lines.opening1);
+  prepare(line2, lines.opening2);
 
-  line1.classList.remove("is-visible");
-  line2.classList.remove("is-visible");
-
-  await sleep(40);
-
-  line1.classList.add("is-visible");
-
+  await fadeIn(line1);
   await sleep(HOLD);
 
-  line2.classList.add("is-visible");
+  await fadeIn(line2);
   await sleep(HOLD);
 
-  line1.classList.remove("is-visible");
-  line2.classList.remove("is-visible");
-  await sleep(FADE);
+  await Promise.all([
+    fadeOut(line1),
+    fadeOut(line2)
+  ]);
 
   setMode("single");
 
-  show(line1, lines.line3);
+  await fadeIn(line1, lines.line3);
   await sleep(HOLD);
 
   brandBlock.classList.add("is-visible");
 
-  hide(line1);
-  await sleep(FADE);
+  await fadeOut(line1);
 
-  show(line1, lines.line4);
+  await fadeIn(line1, lines.line4);
   await sleep(HOLD);
 
-  hide(line1);
-  await sleep(FADE);
+  await fadeOut(line1);
 
-  show(line1, lines.line5);
+  await fadeIn(line1, lines.line5);
   await sleep(FINAL);
-}
 
-function randomLine(prev) {
-  let next;
-  do {
-    next = ambientLines[Math.floor(Math.random() * ambientLines.length)];
-  } while (next === prev);
-  return next;
-}
-
-async function ambient() {
-  let current = lines.line5;
-
-  while (true) {
-    const next = randomLine(current);
-    hide(line1);
-    await sleep(FADE);
-    show(line1, next);
-    await sleep(HOLD);
-    current = next;
-  }
+  await fadeOut(line1);
 }
 
 (async () => {
-  await sleep(200);
   while (true) {
     await opening();
     await sleep(2000);
