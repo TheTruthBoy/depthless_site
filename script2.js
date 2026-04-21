@@ -1,7 +1,6 @@
 const lines = {
   opening1: "Brands, audiences, media, culture, ideas<br>they aren’t separate",
   opening2: "Meaning is what connects them",
-  line3: "Meaning is the way in",
   line4: "Depthless makes the structure<br>visible, comparable, and navigable",
   line5: "Meaning connects everything"
 };
@@ -84,12 +83,7 @@ async function opening() {
 
   setMode("single");
 
-  await fadeIn(line1, lines.line3);
-  await sleep(HOLD);
-
   brandBlock.classList.add("is-visible");
-
-  await fadeOut(line1);
 
   await fadeIn(line1, lines.line4);
   await sleep(HOLD);
