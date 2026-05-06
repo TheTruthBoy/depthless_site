@@ -8,17 +8,27 @@
 </head>
 <body>
   <main class="site">
-    
-    <section class="stage" aria-live="polite">
-      <div id="textStage" class="text-stage opening">
-        <div id="line1" class="line"></div>
-        <div id="line2" class="line"></div>
-      </div>
-    </section>
 
-    <section id="brandBlock" class="brand-block">
+    <header class="topbar">
       <img src="logo.svg" alt="Depthless" class="logo">
       <a class="email" href="mailto:see@depthless.one">see@depthless.one</a>
+    </header>
+
+    <section class="hero">
+      <div class="copy-panel" aria-live="polite">
+        <div id="textStage" class="text-stage">
+          <div id="line1" class="line"></div>
+          <div id="line2" class="line"></div>
+        </div>
+      </div>
+
+      <div class="video-panel">
+        <div class="video-frame">
+          <video id="demoVideo" muted loop playsinline>
+            <source src="demo.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
     </section>
 
   </main>
