@@ -113,11 +113,6 @@
     max-width: 100%;
     overflow: hidden;
     position: relative;
-    opacity: 0;
-    transition: opacity 1200ms ease;
-  }
-  .video-frame.is-visible {
-    opacity: 1;
   }
 
   .video-frame video {
@@ -168,12 +163,12 @@
   
     .video-frame {
       width: 100%;
-      height: 220px;
+      height: 260px;
     }
       
     .video-frame video {
       width: 100%;
-      top: -45px;
+      top: 0;
       left: 0;
     }  
   }
@@ -215,4 +210,28 @@
   
     opacity: 1;
     animation: grainShift 18s linear infinite;
+  }
+  .static-copy h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2vw, 2.2rem);
+    line-height: 1.08;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+  }
+  
+  .static-copy p:not(.tagline) {
+    margin: 1.5rem 0 0 0;
+    font-size: clamp(0.8rem, 0.9vw, 1rem);
+    line-height: 1.45;
+    font-weight: 330;
+    max-width: 42rem;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .tagline {
+    margin-top: 2rem;
+    font-size: clamp(0.85rem, 1vw, 1.1rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: #ffffff;
   }
