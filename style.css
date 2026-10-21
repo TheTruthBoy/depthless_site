@@ -272,3 +272,6 @@ body::before {
 .contact h2 { margin-bottom: 1.5rem; }
 
 .case-line { margin: 0 0 1.25rem; font-size: clamp(0.95rem, 1.05vw, 1.05rem); font-weight: 400; color: rgba(255,255,255,0.85); padding-left: 1rem; border-left: 2px solid rgba(255,255,255,0.5); }
+
+.definition { margin: 5rem 0 0; font-size: 0.9rem; line-height: 1.6; font-weight: 300; color: rgba(255,255,255,0.85); }
+.definition strong { font-weight: 500; color: #ffffff; }
